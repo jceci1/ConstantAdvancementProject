@@ -2,7 +2,7 @@ CXX = g++
 CXXFLAGS = -std=c++17 -Wall -I../ThreadLibrary
 LDFLAGS = -lpthread
 LIB_DIR = ../ThreadLibrary
-SRCS = $(LIB_DIR)/test.cpp
+SRCS = $(LIB_DIR)/test.cpp $(LIB_DIR)/thread.cpp
 TARGET = thread_test_app
 all: $(TARGET)
 
