@@ -1,14 +1,13 @@
 #include "global_counter.h"
 
-
-/*Constructor: Initializes the counter to zero and initializes the mutex*/
+/*Global Counter constructor: Initializes counter to zero and sets up mutex.*/
 global_counter::global_counter() {
     m_value = 0;
     pthread_mutex_init(&m_lock, nullptr);
 }
 
 
-/*Destructor: Destroys the mutex*/
+/*Global Counter destructor: Cleans up mutex resources.*/
 global_counter::~global_counter() {
     pthread_mutex_destroy(&m_lock);
 }
@@ -28,6 +27,6 @@ int global_counter::incrementAndGet() {
 int global_counter::getValue() {
     pthread_mutex_lock(&m_lock);
     int curr_value = m_value;
-    pthread_mutex_lock(&m_lock);
+    pthread_mutex_unlock(&m_lock);
     return curr_value;
 }
