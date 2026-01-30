@@ -14,7 +14,7 @@ thread::thread(runnable* task) {
     m_stop_requested = false;
     m_can_proceed = false;
     
-    //protects from race condition involving simultaneous thread instantiations
+    //protects from race condition involving multiple threads being created at once
     pthread_mutex_lock(&id_mutex);
     m_unique_id = id_counter++;
     pthread_mutex_unlock(&id_mutex);
@@ -47,7 +47,7 @@ int thread::getId() const {
 void thread::start() {
     pthread_mutex_lock(&m_stateMutex);
 
-    if (m_started) {
+    if(m_started) {
         std::cout << "Double start" << std::endl;
         pthread_mutex_unlock(&m_stateMutex);
         return; 
@@ -90,7 +90,7 @@ void thread::requestStop() {
     pthread_mutex_lock(&m_stateMutex);
     
     m_stop_requested = true; 
-    if (m_task) {
+    if(m_task) {
         m_task->requestStop(); 
     }
     
@@ -112,7 +112,7 @@ void thread::waitTurn() {
     pthread_mutex_lock(&m_stateMutex);
 
     //to protect against spurious wakeups
-    while (!m_can_proceed) {
+    while(!m_can_proceed) {
         pthread_cond_wait(&m_cond, &m_stateMutex);
     }
     
@@ -137,6 +137,6 @@ void* thread::threadEntry(void* arg) {
     runnable* task = curr_thread->m_task;
     pthread_mutex_unlock(&curr_thread->m_stateMutex);
     
-    if (task) task->run();
+    if(task) task->run();
     return nullptr;
 }
