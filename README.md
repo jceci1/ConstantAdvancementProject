@@ -36,7 +36,7 @@ In normal mode, the operating system's scheduler determines the order in which t
 ### Deterministic Mode (Option 2)
 In deterministic mode, a custom thread scheduler enforces a strict execution order. Not only is the distribution of values reproducible, but the exact sequence of which thread processes which value and when is also controlled. This guarantees identical output AND execution order between runs with the same seed.
 
-**Key Difference:** Both modes use the same work distribution algorithm, but deterministic mode adds explicit synchronization to control execution order, while normal mode allows natural OS scheduling.
+Both modes use the same work distribution algorithm, but deterministic mode adds explicit synchronization to control execution order, while normal mode allows natural OS scheduling.
 
 
 # Output
