@@ -160,11 +160,6 @@ int main() {
             if(j < values.size() - 1) {
                 std::cout << ", ";
             }
-            
-            //improves readability
-            if((j + 1) % 20 == 0 && j < values.size() - 1) {
-                std::cout << "\n          ";
-            }
         }
         std::cout << "\n";
     }
